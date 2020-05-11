@@ -36,3 +36,22 @@ class ComplexMultiplication(Scene):
 
         self.play(*animations)
         self.wait()
+
+
+
+class OneQuestion(Scene):
+    def construct(self):
+        question = TextMobject("Question:")
+        self.add(question)
+        self.wait()
+
+class MultiplicationQuestion(Scene):
+    def construct(self):
+        text = TextMobject("What happens when we multiply the square by")
+        text.move_to(UP)
+        two_plus_2i = TexMobject("3+3i \\, \\, \\text{?}")
+        question_mark = TextMobject("?").move_to(DOWN)
+        self.add(text)
+        self.wait()
+        self.play(Write(two_plus_2i))
+        self.wait()
