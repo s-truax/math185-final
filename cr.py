@@ -2,18 +2,23 @@ from manimlib.imports import *
 
 class ComplexMultiplication(Scene):
     def construct(self):
-        w = TexMobject("w").move_to(LEFT*2.5)
-        z = TexMobject("z").move_to(LEFT*3.5)
-        zw = TexMobject("z", "w").move_to(LEFT*3)
+        w = TexMobject("w").move_to(LEFT*1.5)
+        z = TexMobject("z").move_to(LEFT*2.5)
+        zw = TexMobject("z", "w").move_to(LEFT*2)
 
-        w_vec = Arrow(np.array([1, -1, 0]), np.array([2, 1, 0]))
+        z_and_w = VGroup(z, w)
+
+        w_vec = Vector(np.array([0.5, 2, 0]))
         w_vec.set_color(BLUE)
 
-        z_vec = Arrow(np.array([1, -1, 0]), np.array([3, 1, 0]))
+        z_vec = Vector(np.array([1, 1, 0]))
         z_vec.set_color(RED)
 
-        zw_vec = Arrow(np.array([1, -1, 0]), np.array([-2, 4, 0]))
+        zw_vec = Vector(np.array([-1.5, 2.5]))
         zw_vec.set_color(PURPLE)
+
+        vector_group = VGroup(z_vec, w_vec, zw_vec)
+        vector_group.move_to(RIGHT + UP*0.5)
 
         w.set_color(BLUE)
         z.set_color(RED)
@@ -25,11 +30,9 @@ class ComplexMultiplication(Scene):
 
         self.wait()
 
-        z_and_w = VGroup(z, w)
-        z_and_w_vec = VGroup(z_vec, w_vec)
-
         animations = [Transform(z_and_w, zw),
-                     Transform(z_and_w_vec.copy()[0], zw_vec, run_time=2),
-                     Transform(z_and_w_vec.copy()[1], zw_vec, run_time=2)]
+                     Transform(vector_group.copy()[0], vector_group[2]),
+                     Transform(vector_group.copy()[1], vector_group[2])]
 
         self.play(*animations)
+        self.wait()
