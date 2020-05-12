@@ -1,5 +1,5 @@
 from manimlib.imports import *
-from cr_utils import copy_replace_transform
+from cr_utils import copy_replace_transform, TexMobjectWrapper
 
 class ComplexMultiplication(Scene):
     def construct(self):
@@ -55,16 +55,19 @@ class MultiplicationQuestion(Scene):
 
 class ComplexDerivative(Scene):
     def construct(self):
-        first_eqn = TexMobject("f", ": U \\to \\mathbf{C}")
-        at_x0 = TexMobject("x_0", "\\in \\mathbf{C}")
-        second_equn = TexMobject("\\exists", "a", "\\in \\mathbf{C}")
+        color_scheme = {'a':RED, 'z_0':BLUE, 'z':GREEN}
+
+        first_eqn = TexMobjectWrapper(["f", ": U^{open} \\to \\mathbf{C}"], color_scheme)
+        at_x0 = TexMobjectWrapper(["z_0", "\\in \\mathbf{C}"], color_scheme)
+        second_equn = TexMobjectWrapper(["\\exists", "a", "\\in \\mathbf{C}"], color_scheme)
 
         first_eqn.move_to(UP*2 + LEFT*3)
         at_x0.move_to(UP*2)
         second_equn.move_to(UP*2 + RIGHT*3)
 
-        derivative_eqn = TexMobject("f", "(x) - ", "f", "(", "x_0", ")", "=",
-                                     "a", "(x -", "x_0", ")")
+        derivative_eqn = TexMobjectWrapper(["f", "(", "z", ")", "-", "f", "(", "z_0",
+                                    ")", "=", "a", "(", "z", "-", "z_0", ")", "+",
+                                    "R", "(", "z", ")"], color_scheme)
 
         self.play(Write(first_eqn))
         self.wait(2)
@@ -72,17 +75,14 @@ class ComplexDerivative(Scene):
         self.wait()
         self.play(Write(second_equn))
 
-        fs_indicies = (0, 2)
-        replace_fs = [ReplacementTransform(first_eqn[0].copy(), derivative_eqn[i]) for i in fs_indicies]
+        f_replacements = first_eqn.transform_to(derivative_eqn, 'f', 'f')
 
-        x0s = (4, 9)
-        replace_x0s = [ReplacementTransform(at_x0[0].copy(), derivative_eqn[i]) for i in x0s]
+        x0_replacements = at_x0.transform_to(derivative_eqn, 'z_0', 'z_0')
 
-        replace_as = ReplacementTransform(second_equn[1].copy(), derivative_eqn[7])
+        replace_a = second_equn.transform_to(derivative_eqn, 'a', 'a')
 
-        der_eqn_ind = (1, 3, 5, 6, 8, 10)
+        replacements = f_replacements + x0_replacements + replace_a
+        leftovers = derivative_eqn.write_leftovers()
 
-        self.play(*replace_fs)
-        self.play(*replace_x0s)
-        self.play(replace_as)
-        self.play(*[Write(derivative_eqn[i]) for i in der_eqn_ind])
+        self.play(*replacements)
+        self.play(*leftovers)
