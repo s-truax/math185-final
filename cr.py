@@ -1,5 +1,5 @@
 from manimlib.imports import *
-from cr_utils import copy_replace_transform, TexMobjectWrapper
+from cr_utils import *
 
 class ComplexMultiplication(Scene):
     def construct(self):
@@ -70,10 +70,11 @@ class ComplexDerivative(Scene):
                                     "R", "(", "z", ")"], color_scheme)
 
         self.play(Write(first_eqn))
-        self.wait(2)
+        self.wait(4)
         self.play(Write(at_x0))
-        self.wait()
+        self.wait(3)
         self.play(Write(second_equn))
+        self.wait(2)
 
         f_replacements = first_eqn.transform_to(derivative_eqn, 'f', 'f')
 
@@ -86,3 +87,23 @@ class ComplexDerivative(Scene):
 
         self.play(*replacements)
         self.play(*leftovers)
+        self.wait()
+        der_eqn2 = TexMobject(*["f", "(", "z", ")", "-", "f", "(", "z_0",
+                                    ")", "=", "a", "(", "z", "-", "z_0", ")", "+",
+                                    "R(z)"])
+        brace = Brace(der_eqn2[17], DOWN, buff=SMALL_BUFF)
+        b_text = brace.get_text("$\\lim \\limits_{z \\to z_0} \\frac{R(z)}{z-z_0} = 0$")
+        self.play(GrowFromCenter(brace), FadeIn(b_text))
+        self.wait(2)
+        self.play(FadeOut(brace), FadeOut(b_text))
+
+        approx_eqn = TexMobjectWrapper(["f", "(", "z", ")", "-", "f", "(", "z_0",
+                                    ")", "\\approx", "a", "(", "z", "-", "z_0", ")"], color_scheme)
+
+        der_to_appox_map = ((0,0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6),
+                         (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12),
+                         (13, 13), (14, 14), (15, 15), (16, 9), (17, 9),
+                         (18, 9), (19, 9), (20, 9))
+        der_to_approx = jenky_transform(derivative_eqn, approx_eqn, der_to_appox_map)
+        self.play(*der_to_approx)
+        self.wait()

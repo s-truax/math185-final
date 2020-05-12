@@ -7,6 +7,13 @@ def copy_replace_transform(source, target, source_ind, target_ind):
     out = [ReplacementTransform(source.copy()[i], target[j]) for i, j in zipped]
     return out
 
+def jenky_transform(mobj1, mobj2, indicies):
+    transforms = []
+    for i, j in indicies:
+        t = ReplacementTransform(mobj1[i], mobj2[j])
+        transforms.append(t)
+    return transforms
+
 class TexMobjectWrapper(TexMobject):
 
     def __init__(self, text_list, color_scheme):
