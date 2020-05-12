@@ -1,4 +1,5 @@
 from manimlib.imports import *
+from cr_utils import copy_replace_transform
 
 class ComplexMultiplication(Scene):
     def construct(self):
@@ -71,4 +72,17 @@ class ComplexDerivative(Scene):
         self.wait()
         self.play(Write(second_equn))
 
-        self.play(FadeInFrom(derivative_eqn, UP))
+        fs_indicies = (0, 2)
+        replace_fs = [ReplacementTransform(first_eqn[0].copy(), derivative_eqn[i]) for i in fs_indicies]
+
+        x0s = (4, 9)
+        replace_x0s = [ReplacementTransform(at_x0[0].copy(), derivative_eqn[i]) for i in x0s]
+
+        replace_as = ReplacementTransform(second_equn[1].copy(), derivative_eqn[7])
+
+        der_eqn_ind = (1, 3, 5, 6, 8, 10)
+
+        self.play(*replace_fs)
+        self.play(*replace_x0s)
+        self.play(replace_as)
+        self.play(*[Write(derivative_eqn[i]) for i in der_eqn_ind])
