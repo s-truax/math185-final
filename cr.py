@@ -36,3 +36,39 @@ class ComplexMultiplication(Scene):
 
         self.play(*animations)
         self.wait()
+
+
+class OneQuestion(Scene):
+    def construct(self):
+        text = TextMobject("Question:")
+        self.add(text)
+        self.wait()
+
+class MultiplicationQuestion(Scene):
+    def construct(self):
+        question = TextMobject("What happens when we multiply the square by")
+        self.add(question)
+        complex_num = TexMobject("3+3i \\, \\, ?")
+        self.play(Write(complex_num))
+        self.wait()
+
+class ComplexDerivative(Scene):
+    def construct(self):
+        first_eqn = TexMobject("f", ": U \\to \\mathbf{C}")
+        at_x0 = TexMobject("x_0", "\\in \\mathbf{C}")
+        second_equn = TexMobject("\\exists", "a", "\\in \\mathbf{C}")
+
+        first_eqn.move_to(UP*2 + LEFT*3)
+        at_x0.move_to(UP*2)
+        second_equn.move_to(UP*2 + RIGHT*3)
+
+        derivative_eqn = TexMobject("f", "(x) - ", "f", "(", "x_0", ")", "=",
+                                     "a", "(x -", "x_0", ")")
+
+        self.play(Write(first_eqn))
+        self.wait(2)
+        self.play(Write(at_x0))
+        self.wait()
+        self.play(Write(second_equn))
+
+        self.play(FadeInFrom(derivative_eqn, UP))
