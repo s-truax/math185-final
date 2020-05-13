@@ -12,3 +12,6 @@ file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexDer
 file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexDerivative/00011.mp4'
 file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexDerivative/00012.mp4'
 file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexDerivative/00013.mp4'
+file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexDerivative/00014.mp4'
+file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexDerivative/00015.mp4'
+file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexDerivative/00016.mp4'

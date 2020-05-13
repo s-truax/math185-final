@@ -121,15 +121,19 @@ class ComplexDerivative(Scene):
 
         approx_to_affine_map = ((0, 0), (1, 1), (2, 2), (3, 3), (9, 4),
                                 (10, 5), (11, 6), (12, 7), (13, 8), (14, 9),
-                                (15, 10), (16, 11), (17, 12), (18, 13), (19, 14),
-                                (20, 15))
+                                (15, 10))
         approx_drop = (4, 5, 6, 7, 8)
         approx_to_affine = jenky_transform(approx_eqn, affine_eqn, approx_to_affine_map)
         fade_out_approx =  [FadeOut(approx_eqn[i]) for i in approx_drop]
-        fade_out_affine_add = [FadeOutAndShift(affine_add[i], UP) for i in affine_add_inds]
-        final_transform = approx_to_affine + fade_out_approx + fade_out_affine_add
+
+        affine_add_drop = (4, 5, 6, 7, 8)
+        affine_add_keep = ((16,11), (17,12), (18,13), (19,14), (20,15))
+
+        add_to_final = jenky_transform(affine_add, affine_eqn, affine_add_keep)
+
+        fade_out_affine_add = [FadeOutAndShift(affine_add[i], UP) for i in affine_add_drop]
+        final_transform = approx_to_affine + fade_out_approx + add_to_final + fade_out_affine_add
         self.play(*final_transform)
-        self.remove(*[FadeOut(approx_eqn[i]) for i in approx_drop])
 
         self.wait()
 
