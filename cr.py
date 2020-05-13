@@ -138,3 +138,29 @@ class ComplexDerivative(Scene):
         self.wait()
 
         # Some real spaghetti code
+
+
+class ComplexToReal(Scene):
+    color_scheme = {'z':PURPLE, 'x':RED, 'y':BLUE, 'u':ORANGE,
+                    'v':GREEN, 'w':YELLOW_D, 'f':YELLOW_D}
+    def construct(self):
+        complex_eqn = TexMobjectWrapper(tuple('f(z)=w'), self.color_scheme)
+        real_eqn = TexMobjectWrapper(tuple('f(x,y)=u(x,y)+iv(x,y)'), self.color_scheme)
+
+        # Positioning
+        complex_eqn.move_to(UP*1.5)
+        real_eqn
+
+        self.play(Write(complex_eqn))
+
+        self.wait()
+
+        # Time to get fancy
+        # Transformation indicies
+        transform_indicies = ((0, 0), (1, 1), (2, 2), (2, 3), (2, 4), (3, 5),
+                              (4, 6), (5, 7), (5, 8), (5, 9), (5, 10), (5, 11),
+                              (5, 12), (5, 13), (5, 14), (5, 15), (5, 16),
+                              (5, 17), (5, 18), (5, 19), (5, 20))
+        transform = jenky_copy_transform(complex_eqn, real_eqn, transform_indicies)
+        self.play(*transform)
+        self.wait()

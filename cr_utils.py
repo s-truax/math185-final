@@ -14,6 +14,13 @@ def jenky_transform(mobj1, mobj2, indicies):
         transforms.append(t)
     return transforms
 
+def jenky_copy_transform(mobj1, mobj2, indicies):
+    transforms = []
+    for i, j in indicies:
+        t = ReplacementTransform(mobj1[i].copy(), mobj2[j])
+        transforms.append(t)
+    return transforms
+
 class TexMobjectWrapper(TexMobject):
 
     def __init__(self, text_list, color_scheme):
