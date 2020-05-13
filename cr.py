@@ -203,3 +203,60 @@ class ComplexToReal(Scene):
 
     def fade_out_vector_eqn(self, mobject, indicies):
         return [FadeOut(mobject[j]) for i, j in indicies]
+
+class RealDerivativeQuestion(Scene):
+    def construct(self):
+        text1 = TextMobject("When is a function $f: \\mathbf{R}^2 \\to \\mathbf{R}^2$")
+        text2 = TextMobject("complex differentiable", "?")
+
+        # Positioning
+        text1.move_to(UP)
+
+        # Colors
+        text2[0].set_color(RED)
+
+        self.play(Write(text1))
+        self.play(Write(text2))
+        self.wait()
+
+class RealDerivative(Scene):
+    color_scheme = {'z':PURPLE, 'x':RED, 'y':BLUE, 'x_0':RED,
+                    'y_0':BLUE, 'w':YELLOW_D, 'f':YELLOW_D, 'a': GREEN,
+                    'A': GREEN, 'z_0':ORANGE}
+
+    def construct(self):
+        f_domains = TexMobjectWrapper(["f", ":", "\\mathbf{R}^2 \\to \\mathbf{R^2}"], self.color_scheme)
+        x0y0 = TexMobjectWrapper(["(", "x_0", ",", "y_0", ")", "\\in \\mathbf{R}^2"], self.color_scheme)
+        exists_A = TexMobjectWrapper(["\\exists", "A", "\\in \\text{GL}_2(\\mathbf{R})"], self.color_scheme)
+        real_der = TexMobjectWrapper(["f", "(","x",",", "y",")","-","f","(","x_0",",","y_0",")" ,'=', "A","((","x",",", "y",")","-(","x_0",",", "y_0","))", "+","R(","x",",","y",")"], self.color_scheme)
+        complex_der = TexMobjectWrapper(["f", "(", 'z', ')', '-', 'f', '(', 'z_0',')=','a','(','z','-','z_0',')','+R(','z',')'], self.color_scheme)
+        real_der_copy = TexMobject("f(x, y)-f(x_0,y_0) =", "A((x, y)-(x_0, y_0))", "+", "R(x, y)")
+        complex_der_copy = TexMobject("f(z)-f(z_0)=", "a(z-z_0)", "+R(z)")
+
+        # Positioning
+        f_domains.move_to(UP*2 + LEFT*4)
+        x0y0.move_to(UP*2)
+        exists_A.move_to(UP*2 + RIGHT*4)
+        complex_der.move_to(DOWN*2)
+        complex_der_copy.move_to(DOWN*2)
+
+        # boxes
+        real_box = SurroundingRectangle(real_der_copy[1], buff=SMALL_BUFF)
+        complex_box = SurroundingRectangle(complex_der_copy[1], buff=SMALL_BUFF)
+
+        # brace
+        brace = Brace(real_der_copy[3], DOWN, buff=SMALL_BUFF)
+        b_text = brace.get_text("$\\lim \\limits_{|(x,y)| \\to 0} \\frac{R(x,y)}{|(x,y)|} = 0$")
+
+        self.play(Write(f_domains))
+        self.play(Write(x0y0))
+        self.play(Write(exists_A))
+
+        self.play(Write(real_der))
+        self.play(GrowFromCenter(brace), FadeIn(b_text))
+
+        self.play(FadeOut(brace), FadeOut(b_text))
+        self.play(Write(complex_der))
+
+        self.play(ShowCreation(complex_box))
+        self.play(ShowCreation(real_box))
