@@ -186,3 +186,20 @@ class ComplexToReal(Scene):
         self.wait()
         self.play(*third_transform)
         self.play(*[Write(vector_eqn[i]) for i in vector_eqn_write_indicies])
+
+        self.wait(3)
+
+        vector_eqn_fade_out = self.fade_out_vector_eqn(vector_eqn,
+                                                        third_transform_indicies)
+        parens_fade_out = [FadeOut(vector_eqn[i]) for i in vector_eqn_write_indicies]
+        other_eqns_fade_out = [FadeOut(complex_eqn), FadeOut(complex_eqn2),
+                               FadeOut(real_eqn)]
+
+        fade_out_all = vector_eqn_fade_out + parens_fade_out + other_eqns_fade_out
+
+        self.play(*fade_out_all)
+
+        self.wait()
+
+    def fade_out_vector_eqn(self, mobject, indicies):
+        return [FadeOut(mobject[j]) for i, j in indicies]
