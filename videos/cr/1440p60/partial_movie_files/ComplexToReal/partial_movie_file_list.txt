@@ -4,3 +4,5 @@ file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexToR
 file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexToReal/00003.mp4'
 file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexToReal/00004.mp4'
 file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexToReal/00005.mp4'
+file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexToReal/00006.mp4'
+file 'C:/Users/sam/manim-0.1.10/videos/cr/1440p60/partial_movie_files/ComplexToReal/00007.mp4'

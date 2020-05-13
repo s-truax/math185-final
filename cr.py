@@ -147,11 +147,13 @@ class ComplexToReal(Scene):
         complex_eqn = TexMobjectWrapper(tuple('f(z)=w'), self.color_scheme)
         complex_eqn2 = TexMobjectWrapper(tuple('f(x+iy)=u+iv'), self.color_scheme)
         real_eqn = TexMobjectWrapper(tuple('f(x,y)=u(x,y)+iv(x,y)'), self.color_scheme)
+        vector_eqn = TexMobjectWrapper(tuple('f(x,y)=(u(x,y),v(x,y))'), self.color_scheme)
 
         # Positioning
         complex_eqn.move_to(LEFT*2 + UP*1.5)
         complex_eqn2.move_to(RIGHT*2 + UP*1.5)
         real_eqn
+        vector_eqn.move_to(DOWN + LEFT*0.09) # make it look aligned
 
         self.play(Write(complex_eqn))
 
@@ -163,12 +165,24 @@ class ComplexToReal(Scene):
                                     (3, 5), (4, 6), (5, 7), (5, 8), (5, 9),
                                     (5, 10), (5, 11))
         first_transform = jenky_copy_transform(complex_eqn, complex_eqn2, first_transform_indicies)
+
         second_transform_indicies = ((0, 0), (1, 1), (2, 2), (3, 3), (4, 14),
                               (5, 4), (6, 5), (7, 6), (8, 7), (9, 13), (10, 14),
                               (11, 15), (1, 8), (1, 16), (5, 12), (5, 20),
                               (2, 9), (2, 17), (4, 11), (4, 19), (9, 10), (9,18))
         second_transform = jenky_copy_transform(complex_eqn2, real_eqn, second_transform_indicies)
+
+        third_transform_indicies = ((6, 6), (7, 8), (8, 9), (9, 10), (10, 11),
+                                    (11, 12), (12, 13), (13, 14), (14, 14),
+                                    (15, 15), (16, 16), (17, 17), (18, 18),
+                                    (19, 19), (20, 20))
+        third_transform = jenky_copy_transform(real_eqn, vector_eqn, third_transform_indicies)
+
+        vector_eqn_write_indicies = (7, 21)
+
         self.play(*first_transform)
         self.wait()
         self.play(*second_transform)
         self.wait()
+        self.play(*third_transform)
+        self.play(*[Write(vector_eqn[i]) for i in vector_eqn_write_indicies])
