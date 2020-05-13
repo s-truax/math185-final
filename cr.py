@@ -98,7 +98,8 @@ class ComplexDerivative(Scene):
         self.play(FadeOut(brace), FadeOut(b_text))
 
         approx_eqn = TexMobjectWrapper(["f", "(", "z", ")", "-", "f", "(", "z_0",
-                                    ")", "\\approx", "a", "(", "z", "-", "z_0", ")"], color_scheme)
+                                    ")", "\\approx", "a", "(", "z", "-", "z_0", ")",
+                                    "+", "f", "(", "z_0", ")"], color_scheme)
 
         der_to_appox_map = ((0,0), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5), (6, 6),
                          (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12),
@@ -111,7 +112,25 @@ class ComplexDerivative(Scene):
         affine_add = TexMobjectWrapper(["f", "(", "z", ")", "+", "f", "(", "z_0",
                                         ")", "\\approx", "a", "(", "z", "-",
                                         "z_0", ")", "+", "f", "(", "z_0", ")"], color_scheme)
-        affine_add.move_to(DOWN*0.8 + RIGHT*0.85)
+        affine_add.move_to(DOWN*0.8)
         affine_add_inds = (4, 5, 6, 7, 8, 16, 17, 18, 19, 20)
         self.play(*[FadeInFrom(affine_add[i]) for i in affine_add_inds])
-        # self.play(FadeIn(affine_add))
+
+        affine_eqn = TexMobjectWrapper(["f", "(", "z", ")", "\\approx", "a", "(", "z", "-",
+                                        "z_0", ")", "+", "f", "(", "z_0", ")"], color_scheme)
+
+        approx_to_affine_map = ((0, 0), (1, 1), (2, 2), (3, 3), (9, 4),
+                                (10, 5), (11, 6), (12, 7), (13, 8), (14, 9),
+                                (15, 10), (16, 11), (17, 12), (18, 13), (19, 14),
+                                (20, 15))
+        approx_drop = (4, 5, 6, 7, 8)
+        approx_to_affine = jenky_transform(approx_eqn, affine_eqn, approx_to_affine_map)
+        fade_out_approx =  [FadeOut(approx_eqn[i]) for i in approx_drop]
+        fade_out_affine_add = [FadeOutAndShift(affine_add[i], UP) for i in affine_add_inds]
+        final_transform = approx_to_affine + fade_out_approx + fade_out_affine_add
+        self.play(*final_transform)
+        self.remove(*[FadeOut(approx_eqn[i]) for i in approx_drop])
+
+        self.wait()
+
+        # Some real spaghetti code
