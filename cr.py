@@ -258,8 +258,8 @@ class RealDerivative(Scene):
         self.play(FadeOut(brace), FadeOut(b_text))
         self.play(Write(complex_der))
 
-        self.play(ShowCreation(complex_box))
         self.play(ShowCreation(real_box))
+        self.play(ShowCreation(complex_box))
 
         self.play(FadeOut(f_domains), FadeOut(x0y0), FadeOut(exists_A),
                   FadeOut(complex_der), FadeOut(real_der), FadeOut(complex_box),
