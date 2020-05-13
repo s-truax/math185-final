@@ -107,3 +107,11 @@ class ComplexDerivative(Scene):
         der_to_approx = jenky_transform(derivative_eqn, approx_eqn, der_to_appox_map)
         self.play(*der_to_approx)
         self.wait()
+
+        affine_add = TexMobjectWrapper(["f", "(", "z", ")", "+", "f", "(", "z_0",
+                                        ")", "\\approx", "a", "(", "z", "-",
+                                        "z_0", ")", "+", "f", "(", "z_0", ")"], color_scheme)
+        affine_add.move_to(DOWN*0.8 + RIGHT*0.85)
+        affine_add_inds = (4, 5, 6, 7, 8, 16, 17, 18, 19, 20)
+        self.play(*[FadeInFrom(affine_add[i]) for i in affine_add_inds])
+        # self.play(FadeIn(affine_add))
