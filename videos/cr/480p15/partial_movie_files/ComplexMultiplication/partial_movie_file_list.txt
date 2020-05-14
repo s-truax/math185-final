@@ -4,5 +4,3 @@ file 'C:/Users/sam/manim-0.1.10/videos/cr/480p15/partial_movie_files/ComplexMult
 file 'C:/Users/sam/manim-0.1.10/videos/cr/480p15/partial_movie_files/ComplexMultiplication/00003.mp4'
 file 'C:/Users/sam/manim-0.1.10/videos/cr/480p15/partial_movie_files/ComplexMultiplication/00004.mp4'
 file 'C:/Users/sam/manim-0.1.10/videos/cr/480p15/partial_movie_files/ComplexMultiplication/00005.mp4'
-file 'C:/Users/sam/manim-0.1.10/videos/cr/480p15/partial_movie_files/ComplexMultiplication/00006.mp4'
-file 'C:/Users/sam/manim-0.1.10/videos/cr/480p15/partial_movie_files/ComplexMultiplication/00007.mp4'

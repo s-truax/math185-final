@@ -26,7 +26,7 @@ class ComplexMultiplication(Scene):
         zw.set_color(PURPLE)
 
         self.play(Write(w), ShowCreation(w_vec))
-        self.wait()
+        self.wait(3)
         self.play(Write(z), ShowCreation(z_vec))
 
         self.wait()
@@ -72,7 +72,7 @@ class ComplexDerivative(Scene):
         self.play(Write(first_eqn))
         self.wait(4)
         self.play(Write(at_x0))
-        self.wait(3)
+        self.wait()
         self.play(Write(second_equn))
         self.wait(2)
 
@@ -183,11 +183,11 @@ class ComplexToReal(Scene):
         self.play(*first_transform)
         self.wait()
         self.play(*second_transform)
-        self.wait()
+        self.wait(5)
         self.play(*third_transform)
         self.play(*[Write(vector_eqn[i]) for i in vector_eqn_write_indicies])
 
-        self.wait(3)
+        self.wait(6)
 
         vector_eqn_fade_out = self.fade_out_vector_eqn(vector_eqn,
                                                         third_transform_indicies)
@@ -206,14 +206,14 @@ class ComplexToReal(Scene):
 
 class RealDerivativeQuestion(Scene):
     def construct(self):
-        text1 = TextMobject("When is a function $f: \\mathbf{R}^2 \\to \\mathbf{R}^2$")
-        text2 = TextMobject("complex differentiable", "?")
+        text1 = TextMobject("When does a function $f: \\mathbf{R}^2 \\to \\mathbf{R}^2$")
+        text2 = TextMobject("have a", "complex derivative", "?")
 
         # Positioning
         text1.move_to(UP)
 
         # Colors
-        text2[0].set_color(RED)
+        text2[1].set_color(RED)
 
         self.play(Write(text1))
         self.play(Write(text2))
@@ -245,21 +245,26 @@ class RealDerivative(Scene):
         complex_box = SurroundingRectangle(complex_der_copy[1], buff=SMALL_BUFF)
 
         # brace
-        brace = Brace(real_der_copy[3], DOWN, buff=SMALL_BUFF)
+        brace = Brace(real_der_copy[3], UP, buff=SMALL_BUFF)
         b_text = brace.get_text("$\\lim \\limits_{|(x,y)| \\to 0} \\frac{R(x,y)}{|(x,y)|} = 0$")
+        b_text.scale(0.7)
 
         self.play(Write(f_domains))
         self.play(Write(x0y0))
         self.play(Write(exists_A))
 
         self.play(Write(real_der))
-        self.play(GrowFromCenter(brace), FadeIn(b_text))
+        # self.play(GrowFromCenter(brace), FadeIn(b_text))
 
-        self.play(FadeOut(brace), FadeOut(b_text))
+
+        # self.play(FadeOut(brace), FadeOut(b_text))
         self.play(Write(complex_der))
 
         self.play(ShowCreation(real_box))
+        self.wait()
         self.play(ShowCreation(complex_box))
+
+        self.wait(4F)
 
         self.play(FadeOut(f_domains), FadeOut(x0y0), FadeOut(exists_A),
                   FadeOut(complex_der), FadeOut(real_der), FadeOut(complex_box),

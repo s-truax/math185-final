@@ -7,8 +7,8 @@ class SimilarityMatrix(Scene):
     def construct(self):
         m = TexMobject("""\\begin{pmatrix} \\alpha & -\\beta \\\\
         \\beta & \\alpha \\end{pmatrix} """)
-        text1 = TextMobject("What is the form of a 2x2 matrix")
-        text2 = TextMobject("that has the geometric effect of dialation and rotation?")
+        text1 = TextMobject("What is the form of a matrix")
+        text2 = TextMobject("which has the geometric effect of rotation plus dilation?")
 
         text1.move_to(UP*2)
         text2.move_to(UP)
@@ -23,9 +23,13 @@ class SimilarityMatrix(Scene):
         self.play(Write(text1))
         self.play(Write(text2))
 
-        self.wait()
+        self.wait(2)
 
         self.play(Write(m))
+
+        self.wait(8)
+
+        self.play(FadeOut(m), FadeOut(text1), FadeOut(text2))
 
 class TotalDerivative(Scene):
     color_scheme = {}
@@ -142,19 +146,31 @@ class Finale(Scene):
         brace2 = Brace(sim_matrix, DOWN, buff=SMALL_BUFF)
         b2_text = brace2.get_text("Form of a rotation and dilation matrix").scale(0.7)
 
+        cr_box = SurroundingRectangle(cr, buff=SMALL_BUFF)
+
         self.play(Write(f_def))
         self.play(*[FadeInFrom(f_complex[i], DOWN) for i in range(7, 22)])
 
+        self.wait(6)
+
         self.play(Write(der))
         self.play(GrowFromCenter(brace), FadeIn(b_text) )
+
+        self.wait(9)
+
         self.play(GrowFromCenter(eq_sign))
+
         self.play(Write(sim_matrix))
         self.play(GrowFromCenter(brace2), FadeIn(b2_text))
 
-        self.wait()
+        self.wait(2)
 
         self.play(GrowFromCenter(iff1))
 
-        self.wait()
+        self.wait(2)
 
         self.play(Write(cr))
+        self.wait()
+        self.play(ShowCreation(cr_box))
+
+        self.wait(5)
